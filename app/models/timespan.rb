@@ -1,5 +1,6 @@
 class Timespan < ActiveRecord::Base
   has_many :patron_type_occurrences
+  has_many :request_type_occurrences
   validates :starttime, :endtime, presence: true
   after_create :set_name
   after_save :set_name
