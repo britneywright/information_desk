@@ -16,24 +16,27 @@ describe Shift do
       user: @user
     )
   end
+  it "has a valid factory" do
+    expect(FactoryGirl.build(:shift)).to be_valid
+  end
   it "is valid with date, location, start time, end time" do
     expect(@first).to be_valid
   end
   it "is invalid without a date" do
-    @first.date = nil
-    expect(@first).to be_invalid
+    shift = FactoryGirl.build(:shift, date: nil)
+    expect(shift).to be_invalid
   end
   it "is invalid without a location" do
-    @first.location = nil
-    expect(@first).to be_invalid
+    shift = FactoryGirl.build(:shift, location: nil)
+    expect(shift).to be_invalid
   end
   it "is invalid without a starttime" do
-    @first.starttime = nil
-    expect(@first).to be_invalid
+    shift = FactoryGirl.build(:shift, starttime: nil)
+    expect(shift).to be_invalid
   end
   it "is invalid without an endtime" do
-    @first.endtime = nil
-    expect(@first).to be_invalid
+    shift = FactoryGirl.build(:shift, endtime: nil)
+    expect(shift).to be_invalid
   end
   it "belongs to a specific user" do
    expect(@first.user).to eq @user 
