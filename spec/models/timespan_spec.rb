@@ -16,6 +16,7 @@ RSpec.describe Timespan, type: :model do
     expect(@span).to be_invalid
   end
   it "is named after the start time and end time" do
+    @span.save
     expect(@span.name).to eq "7:00 a.m. - 7:30 a.m."
   end
 end
