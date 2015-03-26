@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'User Management' do
   scenario "adds a new user" do
-    manager = create(:user)
+    manager = create(:admin)
 
     visit root_path
     click_link 'Log In'
