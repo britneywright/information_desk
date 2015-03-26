@@ -1,0 +1,10 @@
+<h1>Users</h1>
+<% @users.each do |user| %>
+  <li>
+    <%= user.firstname %> <%= user.lastname %><br />
+    <%= user.email %>
+  </li>
+<% end %>
+<% if can? :manage, @users %>
+  <%= link_to 'New User', new_user_path %>
+<% end %>
