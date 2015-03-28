@@ -3,5 +3,6 @@
 <% end %>
 <% if user_signed_in? %>
   <%= link_to "Log Out", destroy_user_session_path, :method => :delete %>
+  <%= link_to "Users", users_path %>
+  <%= link_to "New Shift", new_shift_path %>
 <% end %>
-<%= link_to "Users", users_path %>

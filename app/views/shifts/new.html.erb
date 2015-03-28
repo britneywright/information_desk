@@ -1,0 +1,24 @@
+<div class="description">
+  <h2><%= "#{current_user.firstname} #{current_user.lastname}" %></h2>
+  <%= form_for @shift, url: {action: "create"} do |f| %>
+    <div class="field">
+      <%= f.label :date %><br />
+      <%= f.date_field :date %>
+    </div>
+    <div>
+      <%= f.label :location %><br />
+      <%= f.text_field :location %>
+    </div>
+    <div class="field">
+      <%= f.label :starttime %><br />
+      <%= f.text_field :starttime %>
+    </div>
+    <div class="field">
+      <%= f.label :endtime %><br />
+      <%= f.text_field :endtime %>
+    </div>
+    <div class="actions">
+      <%= f.submit "Start Shift" %>
+    </div>
+  <% end %>
+</div>

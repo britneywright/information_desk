@@ -1,0 +1,33 @@
+<div class="description">
+  <%= "#{@shift.user.firstname} #{@shift.user.lastname}" %><br />
+  <%= @shift.location %><br />
+  <%= "#{@shift.starttime} - #{@shift.endtime}" %><br />
+  <%= @shift.date %><br />
+</div> 
+<div class="grid">
+</div>
+
+<table>
+  <th>
+    <% @shift.timespans.each do |t| %>
+      <td><%= t.name %></td>
+    <% end %>
+  </th>
+  <% @shift.patrontypelist.each do |p| %>
+    <tr>
+      <td><%= p.name %></td>
+      <% @shift.timespans.each do |t| %>
+        <td><%= @shift.patron_type_occurrences.where("patron_type_id = ? AND timespan_id = ?", p.id,t.id).first.occurrences %></td>
+      <% end %>
+    </tr>
+  <% end %>
+
+<% @shift.requestcategorylist.each do |r| %>
+    <tr>
+      <td><%= r.name %></td>
+      <% @shift.timespans.each do |t| %>
+        <td><%= @shift.request_category_occurrences.where("request_category_id = ? AND timespan_id = ?", r.id,t.id).first.occurrences %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
