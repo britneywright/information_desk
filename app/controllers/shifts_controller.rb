@@ -1,5 +1,5 @@
 class ShiftsController < ApplicationController
-  before_action :set_shift, only: [:show]
+  before_action :set_shift, only: [:show,:edit,:update]
   before_filter :load_user
 
   def new
@@ -14,7 +14,22 @@ class ShiftsController < ApplicationController
       render 'new'
     end
   end
+
+  def edit
+  end
   
+  def update
+    respond_to do |format|
+      if @shift.update(shift_params)
+        format.html { redirect_to @shift, notice: 'Shift was successfully updated.'}
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @shift.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
 
   def set_shift
@@ -26,6 +41,6 @@ class ShiftsController < ApplicationController
   end
 
   def shift_params
-    params.require(:shift).permit(:date,:location,:starttime,:endtime,:user_id)
+    params.require(:shift).permit(:date,:location,:starttime,:endtime,:user_id,patron_type_occurrences_attributes: [:id,:occurrences],request_category_occurrences_attributes: [:id,:occurrences])
   end  
 end

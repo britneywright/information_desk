@@ -4,6 +4,8 @@ class Shift < ActiveRecord::Base
   has_many :patron_type_occurrences
   has_many :request_category_occurrences
   belongs_to :user
+  accepts_nested_attributes_for :patron_type_occurrences
+  accepts_nested_attributes_for :request_category_occurrences
   validates :date,:location,:starttime,:endtime, presence: true 
   after_create :set_patron_type_occurrences, :set_request_category_occurrences
 
