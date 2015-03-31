@@ -14,38 +14,37 @@
       <td><%= t.name %></td>
     <% end %>
   </th>
+  
   <% @shift.patrontypelist.each do |p| %>
-    
     <tr>
       <td><%= p.name %></td>
+        <% @shift.timespans.each do |t| %>
+          <td>
+            <%= s.fields_for :patron_type_occurrences, @shift.patron_type_occurrences.where("patron_type_id = ? AND timespan_id = ?", p.id,t.id).first, url: {action: "edit"}  do |o| %>
+              <div class="field">
+                <%= o.number_field :occurrences %>
+              </div>
+            <% end %>
+          </td>
+        <% end %>
+    </tr>
+  <% end %>
+
+  <% @shift.requestcategorylist.each do |r| %>
+    <tr>
+      <td><%= r.name %></td>
       <% @shift.timespans.each do |t| %>
         <td>
-          <%= s.fields_for @shift.patron_type_occurrences.where("patron_type_id = ? AND timespan_id = ?", p.id,t.id).first, url: {action: "edit"} do |f| %>
+          <%= s.fields_for :request_category_occurrences, @shift.request_category_occurrences.where("request_category_id = ? AND timespan_id = ?", r.id,t.id).first, url: {action: "edit"} do |f| %>
             <div class="field">
               <%= f.number_field :occurrences %>
             </div>
           <% end %>
-          </td>
+        </td>
       <% end %>
     </tr>
-
   <% end %>
 
-  <% @shift.requestcategorylist.each do |r| %>
-
-    <tr>
-      <td><%= r.name %></td>
-<% @shift.timespans.each do |t| %>
-      <td>
-        <%= s.fields_for @shift.request_category_occurrences.where("request_category_id = ? AND timespan_id = ?", r.id,t.id).first, url: {action: "edit"} do |f| %>
-          <div class="field">
-            <%= f.number_field :occurrences %>
-          </div>
-        <% end %>
-      </td>
-    <% end %>
-  </tr>
-<% end %>
 </table>
 <div class="actions">
   <%= s.submit "Save Shift" %>
