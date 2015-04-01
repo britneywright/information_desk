@@ -1,5 +1,5 @@
 class ShiftsController < ApplicationController
-  before_action :set_shift, only: [:show,:edit,:update]
+  before_action :set_shift, only: [:show,:edit,:edit_details,:update]
   before_filter :load_user
 
   def new
@@ -9,7 +9,7 @@ class ShiftsController < ApplicationController
   def create
     @shift = @user.shifts.new(shift_params)
     if @shift.save
-      redirect_to @shift
+      redirect_to @shift.edit
     else
       render 'new'
     end
@@ -18,6 +18,9 @@ class ShiftsController < ApplicationController
   def edit
   end
   
+  def edit_details
+  end
+
   def update
     respond_to do |format|
       if @shift.update(shift_params)

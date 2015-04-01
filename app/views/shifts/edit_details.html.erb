@@ -1,0 +1,26 @@
+<div class="description">
+  <%= form_for @shift, url: shift_path do |f| %> 
+    <%= "#{@shift.user.firstname} #{@shift.user.lastname}" %><br />
+    <div class="field">
+      <%= f.label :date %><br />
+      <%= f.date_field :date %>
+    </div>
+    <div class="field">
+      <%= f.label :location %><br />
+      <%= f.text_field :location %>
+    </div>
+    <div class="field">
+      <%= f.label :starttime %><br />
+      <%= f.text_field :starttime %>
+    </div>
+    <div class="field">
+      <%= f.label :endtime %><br />
+      <%= f.text_field :endtime %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Save shift details" %>
+  </div>
+<% end %>
+
