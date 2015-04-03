@@ -1,31 +1,21 @@
-RequestCategory.create("name"=>"Computer Assistance")
-RequestCategory.create("name"=>"Directions (Building)")
-RequestCategory.create("name"=>"Directions (On Campus)")
-RequestCategory.create("name"=>"Directions (External)")
-RequestCategory.create("name"=>"Directory Search/Info.")
-RequestCategory.create("name"=>"Events or Event Info.")
-RequestCategory.create("name"=>"Flyer Approval")
-RequestCategory.create("name"=>"Hours of Operation")
-RequestCategory.create("name"=>"Lost & Found")
-RequestCategory.create("name"=>"Radio for Assistance")
-RequestCategory.create("name"=>"Referral to Dept./Svc.")
-RequestCategory.create("name"=>"Supplies Request")
-RequestCategory.create("name"=>"Classes/Academic Info.")
-PatronType.create("name"=>"Phone Calls")
-PatronType.create("name"=>"Walk Ups")
-PatronType.create("name"=>"Switchboard Back-Up")
-Timespan.create("name"=>"7:00 a.m. - 7:30 a.m.", "starttime"=>"7:00 a.m.", "endtime"=>"7:30 a.m.")
-Timespan.create("name"=>"8:00 a.m. - 8:30 a.m.", "starttime"=>"8:00 a.m.", "endtime"=>"8:30 a.m.")
-Timespan.create("name"=>"7:30 a.m. - 8:00 a.m.", "starttime"=>"7:30 a.m.", "endtime"=>"8:00 a.m.")
-Timespan.create("name"=>"8:00 a.m. - 8:30 a.m.", "starttime"=>"8:00 a.m.", "endtime"=>"8:30 a.m.")
-Timespan.create("name"=>"9:00 a.m. - 9:30 a.m.", "starttime"=>"9:00 a.m.", "endtime"=>"9:30 a.m.")
-Timespan.create("name"=>"8:30 a.m. - 9:00 a.m.", "starttime"=>"8:30 a.m.", "endtime"=>"9:00 a.m.")
-Timespan.create("name"=>"9:30 a.m. - 10:00 a.m.", "starttime"=>"9:30 a.m.", "endtime"=>"10:00 a.m.")
-Timespan.create("name"=>"10:00 a.m. - 10:30 a.m.", "starttime"=>"10:00 a.m.", "endtime"=>"10:30 a.m.")
-Timespan.create("name"=>"10:30 a.m. - 11:00 a.m.", "starttime"=>"10:30 a.m.", "endtime"=>"11:00 a.m.")
-Timespan.create("name"=>"11:00 a.m. - 11:30 a.m.", "starttime"=>"11:00 a.m.", "endtime"=>"11:30 a.m.")
-Timespan.create("name"=>"12:00 p.m. - 12:30 p.m.", "starttime"=>"12:00 p.m.", "endtime"=>"12:30 p.m.")
-Timespan.create("name"=>"12:30 p.m. - 1:00 p.m.", "starttime"=>"12:30 p.m.", "endtime"=>"1:00 p.m.")
-Timespan.create("name"=>"1:00 p.m. - 1:30 p.m.", "starttime"=>"1:00 p.m.", "endtime"=>"1:30 p.m.")
-Timespan.create("name"=>"1:30 p.m. - 2:00 p.m.", "starttime"=>"1:30 p.m.", "endtime"=>"2:00 p.m.")
-Timespan.create("name"=>"11:30 a.m. - 12:00 p.m.", "starttime"=>"11:30 a.m.", "endtime"=>"12:00 p.m.")
+patron_type_names = ["Phone Calls", "Walk Ups", "Switchboard Back-up"]
+request_category_names = ["Classes/Academic Info.","Computer Assistance","Directions (Building)","Directions (On Campus)","Directions (External)", "Directory Search/Info.","Events or Event Info.","Flyer Approval","Hours of Operation","Lost & Found","Radio for Assistance","Reerral to Dept./Svc.","Supplies Request"]
+start_timespan = Time.parse("7:00")
+end_time = start_timespan.advance(hours: 19)
+
+patron_type_names.each do |p|
+puts PatronType.create(:name => p)
+end
+
+request_category_names.each do |r|
+puts RequestCategory.create(:name => r)
+end
+
+loop do
+puts Timespan.create(:starttime => start_timespan,
+:endtime => start_timespan.advance(minutes: 30),
+:name => "#{start_timespan.to_s(:twelve_hour_clock)} - #{start_timespan.advance(minutes: 30).to_s(:twelve_hour_clock)}"
+)
+start_timespan = start_timespan.advance(minutes: 30)
+break if start_timespan >= end_time 
+end
