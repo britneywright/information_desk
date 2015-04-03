@@ -3,8 +3,8 @@ class CreateShifts < ActiveRecord::Migration
     create_table :shifts do |t|
       t.date :date
       t.string :location
-      t.time :starttime
-      t.time :endtime
+      t.datetime :starttime
+      t.datetime :endtime
     end
   end
 end
